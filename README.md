@@ -51,8 +51,6 @@ Hi! This project is to create a Crossfit Timer count up, count down, with interv
 - 5V DC-DC Step-Up Power Module
 - Slide switch
 
-## Rename a file
-
 
 
 ## Code

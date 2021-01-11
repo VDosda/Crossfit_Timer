@@ -5,11 +5,11 @@ Hi! This project is to create a Crossfit Timer count up, count down, with interv
 
 ## Table of contents
 
--   [Manufacturing](https://github.com/twbs/bootstrap#Manufacturing)
--   [Electronic](https://github.com/twbs/bootstrap#Electronic)
--   [Code](https://github.com/twbs/bootstrap#Code)
--   [Documentation](https://github.com/twbs/bootstrap#Documentation)
--   [Creator](https://github.com/twbs/bootstrap#Creator)
+-   [Manufacturing](https://github.com/VDosda/Crossfit_Timer#manufacturing)
+-   [Electronic](https://github.com/VDosda/Crossfit_Timer#electronic)
+-   [Code](https://github.com/VDosda/Crossfit_Timer#code)
+-   [Documentation](https://github.com/VDosda/Crossfit_Timer#documentation)
+-   [Creator](https://github.com/VDosda/Crossfit_Timer#creator)
 
 ## Manufacturing
 

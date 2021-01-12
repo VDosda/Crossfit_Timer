@@ -60,17 +60,4 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 ### Softwares :
 - Arduino IDE
 
-## UML diagrams
-
-How the code works:
-
-```mermaid
-sequenceDiagram
-Main_code_timer -> Setup_Timer: Setup Timer
-Main_code_timer->>Timer: Start/Stop
-Main_code_timer->>Timer: Clock
-Timer->>Display: Turn on Leds
-
-Note right of Timer: 
-```
 

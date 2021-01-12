@@ -1,6 +1,8 @@
 # CrossFit Timer
 
-Hi! This project is to create a Crossfit Timer count up, count down, with interval, the possibility to set rounds and a basic clock mode.
+Hi ! 
+I did this project because I wanted to build a Crossfit Timer that I used during the lockdown. It's better that a phone or computer and a real one is pretty much expensive.
+Modes I did : count up, count down, interval, the possibility to set rounds and a basic clock mode.
 
 
 ## Table of contents

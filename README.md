@@ -66,12 +66,12 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 
 There is five buttons ( beginning from the right )
 
-|           |ROLE                |Timer is set                       |Setup mode     | Timer is running | Timer is pause  | Clock mode       |
-|-----------|--------------------|-----------------------------------|---------------|------------------|-----------------|------------------|
-|First BTN  | START / PAUSE / OK | Start                             | Ok            | Pause            | Start           | 
-|Second BTN | SETUP TIME         | Setup mode                        | Change digits | Nothing          | Nothing         |
-|Third BTN  | UP                 | Up count mode                     | Count up      | Nothing          | Nothing         |
-|Fourth BTN | DOWN               | Down count mode                   | Count Down    | Nothing          | Nothing         |
-|Fifth BTN  | RESET / CLOCK MODE | Nothing or after 3 sec clock mode | Nothing       | Reset            | Reset           |
+| Button |ROLE                |Timer is set                       |Setup mode     | Timer is running | Timer is pause  | Clock mode       |
+|--------|--------------------|-----------------------------------|---------------|------------------|-----------------|------------------|
+|First   | START / PAUSE / OK | Start                             | Ok            | Pause            | Start           | Nothing
+|Second  | SETUP TIME         | Setup mode                        | Change digits | Nothing          | Nothing         | Setup mode
+|Third   | UP                 | Up count mode                     | Count up      | Nothing          | Nothing         | Nothing
+|Fourth  | DOWN               | Down count mode                   | Count Down    | Nothing          | Nothing         | Nothing
+|Fifth   | RESET / CLOCK MODE | Nothing or after 3 sec clock mode | Nothing       | Reset            | Reset           | After 3 sec timer mode
 
 

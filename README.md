@@ -53,6 +53,9 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 - 5V DC-DC Step-Up Power Module
 - Slide switch
 
+<img src="Images/Electronic/Fritzing/Crossfit_Timer_fritzing.jpg"
+     alt="Markdown Monster icon"
+     style="size: 50%" />
 
 
 ## Code

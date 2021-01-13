@@ -39,10 +39,10 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 
 ### PCB:
 - [JLCPCB](https://jlcpcb.com/?gclid=CjwKCAiAi_D_BRApEiwASslbJ3z_7JnghO51ybtPCfLTmgLIY_EPknub1aJ6jTnIsRFJ7isGv1mDUhoCed0QAvD_BwE)
-<img src="Images/Electronic/EasyEDA/Arduino_Buttons.jpg"
+<img src="Images/Electronic/EasyEDA/Arduino_Buttons.png"
      alt="Markdown Monster icon"
      style="size: 20%" />
-<img src="Images/Electronic/EasyEDA/Led_Digit_Panel.jpg"
+<img src="Images/Electronic/EasyEDA/Led_Digit_Panel.png"
      alt="Markdown Monster icon"
      style="size: 20%" />
 

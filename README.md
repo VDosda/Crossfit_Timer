@@ -45,6 +45,7 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 <img src="Images/Electronic/EasyEDA/Led_Digit_Panel.png"
      alt="Markdown icon"
      style="size: 10%" />
+![](Images/Electronic/EasyEDA/Arduino_Buttons.png =250x)
 
 ### Components
 - Arduino nano

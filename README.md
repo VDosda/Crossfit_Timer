@@ -11,7 +11,6 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 -   [Electronic](https://github.com/VDosda/Crossfit_Timer#electronic)
 -   [Code](https://github.com/VDosda/Crossfit_Timer#code)
 -   [Documentation](https://github.com/VDosda/Crossfit_Timer#documentation)
--   [Creator](https://github.com/VDosda/Crossfit_Timer#creator)
 
 ## Manufacturing
 
@@ -55,7 +54,7 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 - 5V DC-DC Step-Up Power Module
 - Slide switch
 
-<img src="Images/Electronic/Fritzing/Crossfit_Timer_fritzing.jpg" width="600"/>
+<img src="Images/Electronic/Fritzing/Crossfit_Timer_fritzing.jpg" width="700"/>
 
 
 ## Code
@@ -63,13 +62,24 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 ### Softwares :
 - Arduino IDE
 
+### Architecture 
+I splited the code in four parts/files
+
+| Main code            | Display                   |Set-up                 | Timer                           | 
+|----------------------|---------------------------|-----------------------|---------------------------------|
+|Button functions      | Leds matrix               | Set-up mode functions | Count up/down/interval functions
+|Setup function        | Digit and Alphabet matrix |                       | 10 secondes countdown function
+|Main loop             | Timer display functions   |                       | Buzzer gestion
+
+
+[Code and more details]()
+
 
 
 ## Documentation
-
 There is five buttons ( beginning from the right )
 
-| Button |ROLE                |Timer is set                       |Setup mode     | Timer is running | Timer is pause  | Clock mode       |
+| Button |ROLE                |Timer is set                       |Set-up mode    | Timer is running | Timer is pause  | Clock mode       |
 |--------|--------------------|-----------------------------------|---------------|------------------|-----------------|------------------|
 |First   | START / PAUSE / OK | Start                             | Ok            | Pause            | Start           | Nothing
 |Second  | SETUP TIME         | Setup mode                        | Change digits | Nothing          | Nothing         | Setup mode

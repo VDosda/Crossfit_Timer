@@ -39,8 +39,8 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 
 ### PCB:
 - [JLCPCB](https://jlcpcb.com/?gclid=CjwKCAiAi_D_BRApEiwASslbJ3z_7JnghO51ybtPCfLTmgLIY_EPknub1aJ6jTnIsRFJ7isGv1mDUhoCed0QAvD_BwE)
-<img src="Images/Electronic/EasyEDA/Arduino_Buttons.png" width="200"/>
-<img src="Images/Electronic/EasyEDA/Led_Digit_Panel.png" width="200"/>
+<img src="Images/Electronic/EasyEDA/Arduino_Buttons.png" width="300"/>
+<img src="Images/Electronic/EasyEDA/Led_Digit_Panel.png" width="300"/>
 
 ### Components
 - Arduino nano
@@ -55,9 +55,7 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 - 5V DC-DC Step-Up Power Module
 - Slide switch
 
-<img src="Images/Electronic/Fritzing/Crossfit_Timer_fritzing.jpg"
-     alt="Markdown Monster icon"
-     style="size: 40%" />
+<img src="Images/Electronic/Fritzing/Crossfit_Timer_fritzing.jpg" width="600"/>
 
 
 ## Code

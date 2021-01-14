@@ -10,12 +10,12 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 
 ## Table of contents
 
--   [Manufacturing](https://github.com/VDosda/Crossfit_Timer#manufacturing)
+-   [Making](https://github.com/VDosda/Crossfit_Timer#making)
 -   [Electronic](https://github.com/VDosda/Crossfit_Timer#electronic)
 -   [Code](https://github.com/VDosda/Crossfit_Timer#code)
 -   [Documentation](https://github.com/VDosda/Crossfit_Timer#documentation)
 
-## Manufacturing
+## Making
 
 ### Softwares :
 - Fusion 360
@@ -73,6 +73,7 @@ I splited the code in four parts/files
 |Button functions      | Leds matrix               | Set-up mode functions | Count up/down/interval functions
 |Setup function        | Digit and Alphabet matrix |                       | 10 secondes countdown function
 |Main loop             | Timer display functions   |                       | Buzzer gestion
+|                      |                           |                       | Clock mode
 
 
 [Code and more details]()

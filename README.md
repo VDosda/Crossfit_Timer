@@ -1,5 +1,5 @@
 # CrossFit Timer overview
-<img src="Images/Electronic/EasyEDA/Crossfit_timer_prototype.jpg" width="300"/>
+<img src="Images/Prototype/Crossfit_timer_prototype.jpg"/>
 
 ## About this project
 

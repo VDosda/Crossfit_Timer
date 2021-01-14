@@ -5,7 +5,7 @@
 
 Hi !<br/> 
 This project was to build a Crossfit Timer from zero.<br/> 
-I had the idea during the lockdown (COVID-19), to do sport at home, a Crossfit timer is better than a phone or a computer and a real one is pretty much expensive.<br/> 
+I had the idea during the lockdown (COVID-19) when I was doing sport at home. A Crossfit Timer is better than a phone or a computer and a real one is pretty much expensive.<br/> 
 Modes I did : count up, count down, interval, the possibility to set rounds and a basic clock mode.
 
 

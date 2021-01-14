@@ -1,7 +1,10 @@
-# CrossFit Timer
+# CrossFit Timer overview
 
-Hi ! 
-I did this project because I wanted to build a Crossfit Timer that I used during the lockdown. It's better that a phone or computer and a real one is pretty much expensive.
+## About this project
+
+Hi !<br/> 
+This project was to build a Crossfit Timer from zero.<br/> 
+I had the idea during the lockdown (COVID-19), to do sport at home it's better than a phone or a computer and a real one is pretty much expensive.<br/> 
 Modes I did : count up, count down, interval, the possibility to set rounds and a basic clock mode.
 
 

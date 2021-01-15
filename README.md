@@ -28,9 +28,9 @@ Modes I did : count up, count down, interval, the possibility to set rounds and 
 
 ### Other :
 - [Black Car Window Foils Tint](https://www.aliexpress.com/item/4000479123439.html?spm=a2g0s.9042311.0.0.27426c37jiLaNj)
+- [Translucent paper](https://www.google.com/search?q=translucent+paper&tbm=isch&sxsrf=ALeKk03G3xllpZQCuisPQwcTahbYbgK15Q:1610404205705&source=lnms&sa=X&ved=0ahUKEwigvoCV95TuAhXATxUIHVI7BMoQ_AUIqggoAQ&biw=1434&bih=804)
 - [M3 Inserts Brass](https://www.aliexpress.com/item/32842866575.html?spm=a2g0s.9042311.0.0.27424c4d6tyr0m)
 - [M3 Screw](https://www.aliexpress.com/item/10000181324125.html?spm=a2g0s.9042311.0.0.27424c4d6tyr0m)
-- [Translucent paper](https://www.google.com/search?q=translucent+paper&tbm=isch&sxsrf=ALeKk03G3xllpZQCuisPQwcTahbYbgK15Q:1610404205705&source=lnms&sa=X&ved=0ahUKEwigvoCV95TuAhXATxUIHVI7BMoQ_AUIqggoAQ&biw=1434&bih=804)
 - [Brass Standoff Spacer PCB](https://www.aliexpress.com/item/32852244734.html?spm=a2g0s.9042311.0.0.27424c4d6tyr0m)
 
 

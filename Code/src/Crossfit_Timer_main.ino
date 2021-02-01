@@ -1,5 +1,7 @@
 #include <SimpleTimer.h>
 #include <Adafruit_NeoPixel.h>
+#define FASTLED_INTERNAL
+#include <FastLED.h>
 #include <Wire.h>
 #include <DS3231.h>
 
@@ -69,9 +71,16 @@ SimpleTimer count_blinking_digit_off;
 bool up_down_mode_on_off_flag;
 //------------------------------------------------------------------------------------------- LED MATRIX
 #define N_LEDS     46
-#define PIN         3
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN, NEO_GRB + NEO_KHZ800);
+#define PIN_STRIP_LED         3
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_STRIP_LED, NEO_GRB + NEO_KHZ800);
 
+//------------------------------------------------------------------------------------------- BATTERY LEVEL
+#define PIN_LED         2
+#define LED_TYPE    WS2811
+CRGB led_battery_level[1]; //= Adafruit_NeoPixel(1, PIN_LED, NEO_GRB + NEO_KHZ800);
+float sensor_value;
+float voltage;
+float voltage_tamp;
 //------------------------------------------------------------------------------------------- DISPLAY
 int unit_of_time_display[6]={-1,-1,-1,-1,-1,-1};
 int unit_of_time_display_tamp[6]={-1,-1,-1,-1,-1,-1};
@@ -170,6 +179,21 @@ void btnReset(){
    }
 }
 
+void batteryLevel(){
+ sensor_value = analogRead(A0);
+ voltage = sensor_value*(3.7/1023); //min 1.60
+ int color[3];
+ if(int(voltage_tamp*10) != int(voltage*10)){
+    voltage_tamp=voltage;
+    if(voltage > 2.2 && voltage < 4){
+      color[0]=0; color[1]=250; color[2]=0;
+    }else{
+      color[0]=250; color[1]=0; color[2]=0;
+    }
+    led_battery_level[0] = CRGB(color[0], color[1], color[2]);
+    FastLED.show();
+  }
+}
 
 //////////////////////////////////////  SETUP   //////////////////////////////////////
 void setup()
@@ -233,6 +257,12 @@ void setup()
   timer_click_clock_reset.setInterval(2000);
   mode_tab[3].time_m_s[0] = RTC.getHour(h12Flag, pmFlag);
   mode_tab[3].time_m_s[1] = RTC.getMinute();
+
+  //battery level
+  //battery level
+  pinMode(A0, INPUT_PULLUP); 
+  voltage_tamp = 0;
+  FastLED.addLeds<WS2811, PIN_LED, GRB>(led_battery_level, 1);
   
   strip.begin();
 }
@@ -303,4 +333,6 @@ void loop(){
           }
         }
      }
+
+    batteryLevel();
 }

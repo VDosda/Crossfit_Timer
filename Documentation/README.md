@@ -18,4 +18,4 @@ To turn on the Timer, use the swtich on the side and then you will be in the mai
 
 ### Setup Timer
 
-Ones the timer turned on, you will see <h1 color="green">H1</h1> <h1 color="red">00:00</h1>
+Ones the timer turned on, you will see <span style="color:lawngreen; font-size:30px;">UP</span> <span style="color:red; font-size:30px;">00:00</span></body>

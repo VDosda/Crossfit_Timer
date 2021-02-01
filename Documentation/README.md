@@ -28,8 +28,8 @@ There is 3 parameters :
 - H2 for "second interval" 
 - rd for "rounds"
 
-By clicking the second button again on H1 or H2 parameters you will move on the right and now the minutes digits will be blinking
-Then use the arrows to set minutes (max 99)
+By clicking the second button again on H1 or H2 parameters you will move on the right and now the minutes digits will be blinking, 
+then use the arrows to set minutes (max 99)
 Do ones again the move to set seconds (max 59)
 
 If you are on the rounds parameter, you will be able to set the number of rounds you want (max 99)

@@ -81,6 +81,7 @@ CRGB led_battery_level[1]; //= Adafruit_NeoPixel(1, PIN_LED, NEO_GRB + NEO_KHZ80
 float sensor_value;
 float voltage;
 float voltage_tamp;
+bool red_point_flag;
 //------------------------------------------------------------------------------------------- DISPLAY
 int unit_of_time_display[6]={-1,-1,-1,-1,-1,-1};
 int unit_of_time_display_tamp[6]={-1,-1,-1,-1,-1,-1};
@@ -181,14 +182,16 @@ void btnReset(){
 
 void batteryLevel(){
  sensor_value = analogRead(A0);
- voltage = sensor_value*(3.7/1023); //min 1.60
+ voltage = sensor_value*(3.7/1023); //Max 2.05/2.10   Min 1.65
  int color[3];
  if(int(voltage_tamp*10) != int(voltage*10)){
     voltage_tamp=voltage;
-    if(voltage > 2.2 && voltage < 4){
-      color[0]=0; color[1]=250; color[2]=0;
+    if(voltage > 1.9 && voltage < 2.3)// && red_point_flag)
+    {
+      color[0]=0; color[1]=150; color[2]=0;
     }else{
-      color[0]=250; color[1]=0; color[2]=0;
+      red_point_flag = false; //if voltage go under 3.2 ones, it has to stay red
+      color[0]=150; color[1]=0; color[2]=0;
     }
     led_battery_level[0] = CRGB(color[0], color[1], color[2]);
     FastLED.show();
@@ -262,6 +265,7 @@ void setup()
   //battery level
   pinMode(A0, INPUT_PULLUP); 
   voltage_tamp = 0;
+  red_point_flag = true;
   FastLED.addLeds<WS2811, PIN_LED, GRB>(led_battery_level, 1);
   
   strip.begin();

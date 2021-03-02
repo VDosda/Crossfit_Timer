@@ -1,12 +1,3 @@
-/*PROTO
- * int ledMatrixDigit[6][7] = {
-   { 0,  1,  2,  3,  4,  5,  6},  
-   { 8,  7,  11, 10, 9, 13, 12},
-   {17, 16, 20, 19, 18, 22, 21},
-   {23, 24, 25, 26, 27, 28, 29},
-   {32, 33, 34, 35, 36, 37, 38},
-   {40, 39, 43, 42, 41, 45, 44},
-};*/ 
 int ledMatrixDigit[6][7] = {
    { 0,  1,  2,  3,  4,  5,  6},  
    { 7,  8,  9, 10, 11, 12, 13},
@@ -19,58 +10,60 @@ int ledMatrixDots[2][2]= {
    {14, 15},
    {31, 30},
 };
-#define digitDataLeds_TAB_SIZE    40
-DigitDataLeds digitDataLeds[digitDataLeds_TAB_SIZE] = {
-{'0',{0, 1, 2, 4, 5, 6}, 6},
-{'1',{5, 6}, 2},
-{'2',{0, 2, 3, 4, 6}, 5},
-{'3',{2, 3, 4, 5, 6}, 5},
-{'4',{1, 3, 5, 6}, 4},
-{'5',{1, 2, 3, 4, 5}, 5},
-{'6',{0, 1, 2, 3, 4, 5}, 6},
-{'7',{2, 5, 6}, 3},
-{'8',{0, 1, 2, 3, 4, 5, 6}, 7},
-{'9',{1, 2, 3, 4, 5, 6}, 6},
 
-{'A', {0, 1, 2, 3, 5, 6}, 6},
-{'B', {0, 1, 3, 4, 5}, 5},
-{'C', {0, 1, 2, 4}, 4},
-{'D', {0, 3, 4, 5, 6}, 5},
-{'E', {0, 1, 2, 3, 4}, 5},
-{'F', {0, 1, 2, 3}, 4},
-{'G', {0, 1, 2, 3, 4, 5, 6}, 7},
-{'H', {0, 1, 3, 5, 6}, 5},
-{'I', {5, 6}, 2},
-{'J', {0, 1, 2, 3, 4, 5, 6}, 7},
-{'K', {0, 1, 2, 3, 4, 5, 6}, 7},
-{'L', {0, 1, 4}, 3},
-{'M', {0, 1, 2, 5, 6}, 5},
-{'N', {0, 3, 5}, 3},
-{'O', {0, 1, 2, 4, 5, 6}, 6},
-{'P', {0, 1, 2, 3, 6}, 5},
-{'Q', {0, 1, 2, 3, 4, 5, 6}, 7},
-{'R', {0, 3}, 2},
-{'S', {0, 1, 2, 3, 4, 5, 6}, 7},
-{'T', {0, 1, 3, 4}, 4},
-{'U', {0, 1, 4, 5, 6}, 5},
-{'V', {0, 1, 2, 3, 4, 5, 6}, 7},
-{'W', {0, 1, 2, 3, 4, 5, 6}, 7},
-{'X', {0, 1, 2, 3, 4, 5, 6}, 7},
-{'Y', {0, 1, 2, 3, 4, 5, 6}, 7},
-{'Z', {0, 1, 2, 3, 4, 5, 6}, 7},
-
-{' ', {}, 0},
-{'-', {3}, 1}
+#define C   10
+#define D   11
+#define H   12
+#define L   13
+#define N   14
+#define P   15
+#define R   16
+#define T   17
+#define U   18
+#define MINUS   19
+#define digitDataLeds_TAB_SIZE    20
+char digitDataLeds[digitDataLeds_TAB_SIZE] = {
+  0x77, //0    1110111
+  0x60, //1    1100000
+  0x5D, //2    1011101
+  0x7C, //3    1111100
+  0x6A, //4    1101010
+  0x3E, //5    0111110
+  0x3F, //6    0111111
+  0x64, //7    1100100
+  0x7F, //8    1111111
+  0x7E, //9    1111110
+  0x17, //C    0010111
+  0x79, //D    1111001
+  0x6B, //H    1101011
+  0x13, //L    0010011
+  0x29, //N    0101001
+  0x4F, //P    1001111
+  0x09, //R    0001001
+  0x1B, //T    0011011
+  0x73, //U    1110011
+  0x08, //-    0001000
 };
 
-TabData letterTabToDisplay;
+charInt2 modeMap[6] = {
+  {"H1", {H,1}},
+  {"H2", {H,2}},
+  {"RD", {R,D}},
+  {"CL", {C,L}},
+  {"UP", {U,P}},
+  {"DN", {D,N}},
+};
 
 //////////////////////////////////////////////////////  FUNCTIONS ////////////////////////////////////////////////////////
+
+void fastLedUtil(int led, int r, int g, int b){
+  leds_digit[led] = CRGB(r, g, b);
+}
 
 void cleanDisplay(){
     for(int i=0; i<6; i++){
       for(int j=0; j<7; j++){
-         strip.setPixelColor(ledMatrixDigit[i][j], strip.Color(0, 0, 0));
+         fastLedUtil(ledMatrixDigit[i][j], 0, 0, 0);
       }
   }
   dots(0, false);
@@ -79,7 +72,7 @@ void cleanDisplay(){
 
 void cleanDigit(int digit){
   for(int i=0; i<7; i++){
-     strip.setPixelColor(ledMatrixDigit[digit][i], strip.Color(0, 0, 0));
+     fastLedUtil(ledMatrixDigit[digit][i], 0, 0, 0);
   }
 }
 
@@ -92,103 +85,87 @@ void resetTimerTamps(){
 
 void dots(int positionDots, bool state){
   if(state){
-    strip.setPixelColor(ledMatrixDots[positionDots][0], strip.Color(200/BRIGHTNESS, 0, 0));
-    strip.setPixelColor(ledMatrixDots[positionDots][1], strip.Color(200/BRIGHTNESS, 0, 0));
+    fastLedUtil(ledMatrixDots[positionDots][0], BRIGHTNESS, 0, 0);
+    fastLedUtil(ledMatrixDots[positionDots][1], BRIGHTNESS, 0, 0);
   }else{
-    strip.setPixelColor(ledMatrixDots[positionDots][0], strip.Color(0, 0, 0));
-    strip.setPixelColor(ledMatrixDots[positionDots][1], strip.Color(0, 0, 0));
+    fastLedUtil(ledMatrixDots[positionDots][0], 0, 0, 0);
+    fastLedUtil(ledMatrixDots[positionDots][1], 0, 0, 0);
   }
-  strip.show();
+  FastLED.show();
 }
 
 
-void displayLeds(String message, int px, int r, int g, int b){
-  message.toUpperCase();
-  letterTabToDisplay.tabSize=message.length();
-  for(int i=0; i<message.length(); i++){
-     for(int j=0; j<digitDataLeds_TAB_SIZE; j++){
-        if (message.charAt(i)==digitDataLeds[j].digit){
-           letterTabToDisplay.address[i]=j;
-        }
-     }
-  }
-  for(int i=0; i<letterTabToDisplay.tabSize; i++){
-      if((i+px)<6 && (i+px)>=0) {
-        for(int j=0; j<digitDataLeds[letterTabToDisplay.address[i]].tabSize; j++){
-          strip.setPixelColor(ledMatrixDigit[i+px][digitDataLeds[letterTabToDisplay.address[i]].ledsAddress[j]] , strip.Color(r, g, b));
-        }
+void displayLeds(int digitValue, int px, int r, int g, int b){
+  for(int i=0; i<7; i++){
+      if((digitDataLeds[digitValue] & (1 << i)) >> i){
+        fastLedUtil(ledMatrixDigit[px][i], r, g, b);
       }
-    }
-  strip.show();
+      else{
+        fastLedUtil(ledMatrixDigit[px][i], 0, 0, 0);
+      }
+   }
+  FastLED.show();
 }
 
-void TimerDisplay(char * mode, int r, int h, int m, int s,  bool hideModeFlag, bool hideRoundsFlag, bool hideHoursFlag, bool hideMinutesFlag, bool hideSecondsFlag, bool hideDotsFlag){
+void timerMode(int digit_1, int digit_2){
+     displayLeds(digit_1, 0, 0, BRIGHTNESS, 0);
+     displayLeds(digit_2, 1, 0, BRIGHTNESS, 0);
+  FastLED.show();
+}
+
+
+void digitGestion(int positionDigit, int r, int g, int b){
+     displayLeds(unit_of_time_display[positionDigit], positionDigit, r, g, b);
+     unit_of_time_display_tamp[positionDigit]= unit_of_time_display[positionDigit];
+}
+
+int entityRHMS[4];
+bool hideEntityMRHMSD[6];
+void TimerDisplay(char * mode, int rounds, int minutes, int seconds, bool hideModeFlag, bool hideRoundsFlag, bool hideMinutesFlag, bool hideSecondsFlag, bool hideDotsFlag){
 
 //---------------------------------------------------------DIGIT 0 1
-  if(!hideModeFlag && hideHoursFlag && hideRoundsFlag){
+  if(!hideModeFlag && hideRoundsFlag){
       if (mode_display_tamp != mode){
-          cleanDigit(0);
-          cleanDigit(1);
           dots(0, false);
-          displayLeds(mode, 0, 0, 200/BRIGHTNESS, 0);
+          for(int i=0; i<6; i++){
+            if (modeMap[i].mode == mode){
+              displayLeds(modeMap[i].tab[0], 0, 0, BRIGHTNESS, 0);
+              displayLeds(modeMap[i].tab[1], 1, 0, BRIGHTNESS, 0);
+            }
+          }
           mode_display_tamp = mode;
       }
   }
-  if(!hideHoursFlag && hideRoundsFlag && hideModeFlag){
-       unit_of_time_display[0]=abs(h/10);
-       unit_of_time_display[1]=h-abs(h/10)*10;
-      
-      dots(0, true);
-      
-      if ( unit_of_time_display_tamp[0]!= unit_of_time_display[0]){
-          cleanDigit(0);
-          displayLeds(String( unit_of_time_display[0]), 0, 200/BRIGHTNESS, 0, 0);
-          unit_of_time_display_tamp[0]= unit_of_time_display[0];
-      }
-      if ( unit_of_time_display_tamp[1]!= unit_of_time_display[1]){   
-          cleanDigit(1);
-          displayLeds(String( unit_of_time_display[1]), 1, 200/BRIGHTNESS, 0, 0);
-          unit_of_time_display_tamp[1]= unit_of_time_display[1];
-      }
-  }
-
-  if(!hideRoundsFlag && hideHoursFlag && hideModeFlag){
-      unit_of_time_display[0]=abs(r/10);
-      unit_of_time_display[1]=r-abs(r/10)*10;
+  
+  if(!hideRoundsFlag && hideModeFlag){
+      unit_of_time_display[0]=abs(rounds/10);
+      unit_of_time_display[1]=rounds-abs(rounds/10)*10;
       
       dots(0, false);
       
       if ( unit_of_time_display_tamp[0]!= unit_of_time_display[0]){
-          cleanDigit(0);
-          displayLeds(String( unit_of_time_display[0]), 0, 0, 200/BRIGHTNESS, 0);
-          unit_of_time_display_tamp[0]= unit_of_time_display[0];
+          digitGestion(0, 0, BRIGHTNESS, 0);
       }
       if ( unit_of_time_display_tamp[1]!= unit_of_time_display[1]){   
-          cleanDigit(1);
-          displayLeds(String( unit_of_time_display[1]), 1, 0, 200/BRIGHTNESS, 0);
-          unit_of_time_display_tamp[1]= unit_of_time_display[1];
+          digitGestion(1, 0, BRIGHTNESS, 0);
       }
   }
 
-  if(hideModeFlag && hideHoursFlag && hideRoundsFlag){
+  if(hideModeFlag && hideRoundsFlag){
     cleanDigit(0);
     cleanDigit(1);
     dots(0, false);
   }
 //---------------------------------------------------------DIGIT 2 3
   if(!hideMinutesFlag){
-     unit_of_time_display[2]=abs(m/10);
-     unit_of_time_display[3]=m-abs(m/10)*10;
+     unit_of_time_display[2]=abs(minutes/10);
+     unit_of_time_display[3]=minutes-abs(minutes/10)*10;
     
     if ( unit_of_time_display_tamp[2]!= unit_of_time_display[2]){
-        cleanDigit(2);
-        displayLeds(String( unit_of_time_display[2]), 2, 200/BRIGHTNESS, 0, 0);
-        unit_of_time_display_tamp[2]= unit_of_time_display[2];
+        digitGestion(2, BRIGHTNESS, 0, 0);
     }
     if ( unit_of_time_display_tamp[3]!= unit_of_time_display[3]){
-        cleanDigit(3);
-        displayLeds(String( unit_of_time_display[3]), 3, 200/BRIGHTNESS, 0, 0);
-        unit_of_time_display_tamp[3]= unit_of_time_display[3];
+        digitGestion(3, BRIGHTNESS, 0, 0);
     }
   }else {
     cleanDigit(2);
@@ -196,18 +173,14 @@ void TimerDisplay(char * mode, int r, int h, int m, int s,  bool hideModeFlag, b
     dots(1, false);
   }
 //---------------------------------------------------------DIGIT 4 5  
-   unit_of_time_display[4]=abs(s/10);
-   unit_of_time_display[5]=s-abs(s/10)*10;
+   unit_of_time_display[4]=abs(seconds/10);
+   unit_of_time_display[5]=seconds-abs(seconds/10)*10;
   if(!hideSecondsFlag){
     if ( unit_of_time_display_tamp[4]!= unit_of_time_display[4]){
-        cleanDigit(4);
-        displayLeds(String( unit_of_time_display[4]), 4, 200/BRIGHTNESS, 0, 0);
-        unit_of_time_display_tamp[4]= unit_of_time_display[4];
+        digitGestion(4, BRIGHTNESS, 0, 0);
     }
     if ( unit_of_time_display_tamp[5]!= unit_of_time_display[5]){
-        cleanDigit(5);
-        displayLeds(String( unit_of_time_display[5]), 5, 200/BRIGHTNESS, 0, 0);
-        unit_of_time_display_tamp[5]= unit_of_time_display[5];
+        digitGestion(5, BRIGHTNESS, 0, 0);
         if(!hideDotsFlag){
           timer_dots.reset();
         } 

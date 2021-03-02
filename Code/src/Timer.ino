@@ -1,5 +1,5 @@
 void clockRTC(){
-    TimerDisplay("", 0, 0, RTC.getHour(h12Flag, pmFlag), RTC.getMinute(), true, true, true, false, false, true);
+    TimerDisplay("", 0, RTC.getHour(h12Flag, pmFlag), RTC.getMinute(), true, true, false, false, true);
     if (RTC.getSecond() != previous_RTC_time_clock){
       previous_RTC_time_clock = RTC.getSecond();
       timer_dots.reset();
@@ -33,7 +33,7 @@ void setMillisecondFromRTC(){
 
 void TimerPreparationCountDown(){
     if(setup_timer_flag){
-      TimerDisplay("", 0, 0, 0, 10, true, true, true, true, false, true);
+      TimerDisplay("", 0, 0, 10, true, true, true, false, true);
       SEC_TIMER = 10;
       previousMillis=millis();
       setup_timer_flag=false;
@@ -50,7 +50,7 @@ void TimerPreparationCountDown(){
             timer_buzzer_short.reset();
           }
        }
-       TimerDisplay("", 0, 0, 0, SEC_TIMER, true, true, true, true, false, true);
+       TimerDisplay("", 0, 0, SEC_TIMER, true, true, true, false, true);
     } else{
       timer_preparation_10_sec_flag=false;
       setup_timer_flag=true;
@@ -91,7 +91,7 @@ void intervalTimerUP(){
    if(pre_start_flag){
         pre_start_flag=false;
         rounds_target_display_flag = (RD_TIMER_TARGET == 1 && ((MIN_TIMER_TARGET_H1 + SEC_TIMER_TARGET_H1) == 0 || (MIN_TIMER_TARGET_H2 + SEC_TIMER_TARGET_H2) == 0))? true : false;
-        TimerDisplay("UP", RD_TIMER, 0, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, true, false, false, false);
+        TimerDisplay("UP", RD_TIMER, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, false, false, false);
     }
     if(!timer_preparation_10_sec_flag && running_flag){
        if(setup_timer_flag){
@@ -105,6 +105,7 @@ void intervalTimerUP(){
               TimerCount(1);
               if (rounds_flag){
                 RD_TIMER = RD_TIMER + 1;
+                timer_buzzer_long.reset();
                 rounds_flag = false;
               }
               if( MIN_TIMER == MIN_TIMER_TARGET_H1 && SEC_TIMER > SEC_TIMER_TARGET_H1 && !interval_flag ){
@@ -119,7 +120,7 @@ void intervalTimerUP(){
                 rounds_flag = true;
               }
               if(!(RD_TIMER == RD_TIMER_TARGET && rounds_flag)){ // at the end for a better display of numbers 
-                TimerDisplay("UP", RD_TIMER, 0, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, true, false, false, false);
+                TimerDisplay("UP", RD_TIMER, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, false, false, false);
               }else{
                 dots(1, true);
               }
@@ -138,7 +139,7 @@ void intervalTimerDOWN(){
      if(pre_start_flag){
         pre_start_flag=false;
         rounds_target_display_flag = (RD_TIMER_TARGET == 1 && ((MIN_TIMER_TARGET_H1 + SEC_TIMER_TARGET_H1) == 0 || (MIN_TIMER_TARGET_H2 + SEC_TIMER_TARGET_H2) == 0))? true : false;
-        TimerDisplay("DN", RD_TIMER, 0, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, true, false, false, false);
+        TimerDisplay("DN", RD_TIMER, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, false, false, false);
      }
      if(!timer_preparation_10_sec_flag && running_flag){
        if(setup_timer_flag){
@@ -154,6 +155,7 @@ void intervalTimerDOWN(){
             TimerCount(-1);
             if (rounds_flag){
               RD_TIMER = RD_TIMER + 1;
+              timer_buzzer_long.reset();
               rounds_flag = false;
             }
             if( MIN_TIMER == 0 && SEC_TIMER == 0 && !interval_flag ){
@@ -168,10 +170,10 @@ void intervalTimerDOWN(){
               rounds_flag = true;
             }
             if(!(RD_TIMER == RD_TIMER_TARGET && rounds_flag)){ // at the end for a better display of numbers 
-              TimerDisplay("DN", RD_TIMER, 0, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, true, false, false, false);
+              TimerDisplay("DN", RD_TIMER, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, false, false, false);
             }else{
               dots(1, true);
-              TimerDisplay("DN", RD_TIMER, 0, 0, 0, !rounds_target_display_flag, rounds_target_display_flag, true, false, false, false);
+              TimerDisplay("DN", RD_TIMER, 0, 0, !rounds_target_display_flag, rounds_target_display_flag, false, false, false);
             }
         }else if(!pause_flag){
             running_flag = false;

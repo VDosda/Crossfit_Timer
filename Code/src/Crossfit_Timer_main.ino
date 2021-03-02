@@ -1,21 +1,8 @@
 #include <SimpleTimer.h>
-#include <Adafruit_NeoPixel.h>
 #define FASTLED_INTERNAL
 #include <FastLED.h>
 #include <Wire.h>
 #include <DS3231.h>
-
-//------------------------------------------------------------------------------------------- STRUCTS
-#define N_LEDS_MD 7
-struct DigitDataLeds { 
- const char digit;
- int ledsAddress[N_LEDS_MD];
- int tabSize;
-};
-struct TabData { 
- int address[30];
- int tabSize;
-};
 
 //------------------------------------------------------------------------------------------- CLOCK
 DS3231 RTC;
@@ -48,12 +35,12 @@ bool buttonState_RESET;
 bool one_push_btn_flag;
 
 //------------------------------------------------------------------------------------------- SETUP
-struct DisplayModesType { 
+struct charInt2 { 
  char * mode;
- int time_m_s[2];
+ int tab[2];
 };
 
-DisplayModesType mode_tab[4] = {
+charInt2 mode_tab[4] = {
   {"H1", {0,0}},
   {"H2", {0,0}},
   {"RD", {0,1}},
@@ -70,13 +57,12 @@ SimpleTimer count_blinking_digit_off;
 
 bool up_down_mode_on_off_flag;
 //------------------------------------------------------------------------------------------- LED MATRIX
+#define LED_TYPE    WS2811
 #define N_LEDS     46
-#define PIN_STRIP_LED         3
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_STRIP_LED, NEO_GRB + NEO_KHZ800);
-
+#define PIN_LEDS_DIGIT       3
+CRGB leds_digit[N_LEDS];
 //------------------------------------------------------------------------------------------- BATTERY LEVEL
 #define PIN_LED         2
-#define LED_TYPE    WS2811
 CRGB led_battery_level[1]; //= Adafruit_NeoPixel(1, PIN_LED, NEO_GRB + NEO_KHZ800);
 float sensor_value;
 float voltage;
@@ -87,7 +73,8 @@ int unit_of_time_display[6]={-1,-1,-1,-1,-1,-1};
 int unit_of_time_display_tamp[6]={-1,-1,-1,-1,-1,-1};
 char * mode_display_tamp = "  ";
 
-int BRIGHTNESS=1;
+int BRIGHTNESS=200;
+
 
 //------------------------------------------------------------------------------------------- DELAY timer
 SimpleTimer timer_dots;
@@ -128,6 +115,7 @@ void btnStartStopOk(){
         setup_mode_position_count = 2;
         resetTimerTamps();
         resetTimer();
+        dots(1, true); //in case setup mode is on the round setup, to put back the dots
         Serial.println("setup ready");
      }
      setup_mode_active_flag = false;
@@ -201,7 +189,7 @@ void batteryLevel(){
 //////////////////////////////////////  SETUP   //////////////////////////////////////
 void setup()
 {
-  //Serial.begin(115200);
+  Serial.begin(115200);
 
   pinMode(BUZZER, OUTPUT);
   timer_buzzer_short.setInterval(400);
@@ -258,18 +246,21 @@ void setup()
   Wire.begin();
   clock_activate = false;
   timer_click_clock_reset.setInterval(2000);
-  mode_tab[3].time_m_s[0] = RTC.getHour(h12Flag, pmFlag);
-  mode_tab[3].time_m_s[1] = RTC.getMinute();
+  mode_tab[3].tab[0] = RTC.getHour(h12Flag, pmFlag);
+  mode_tab[3].tab[1] = RTC.getMinute();
 
   //battery level
   //battery level
   pinMode(A0, INPUT_PULLUP); 
   voltage_tamp = 0;
   red_point_flag = true;
-  FastLED.addLeds<WS2811, PIN_LED, GRB>(led_battery_level, 1);
+  FastLED.addLeds<WS2811, PIN_LED, RGB>(led_battery_level, 1);
+
+  FastLED.addLeds<WS2811, PIN_LEDS_DIGIT, GRB>(leds_digit, N_LEDS);
   
-  strip.begin();
+  //strip.begin();
 }
+
 
 //////////////////////////////////////  LOOP   //////////////////////////////////////
 void loop(){

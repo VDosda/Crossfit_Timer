@@ -40,8 +40,8 @@ void TimerPreparationCountDown(){
     }
     if(SEC_TIMER > 0){    
        TimerCount(-1);
-      /*if ( SEC_TIMER == 9 ){ // clean "0" digit for 09 to 01 decount
-          cleanDigit(4);
+      /*if ( SEC_TIMER == 9 ){ // clean "0" display for 09 to 01 decount
+          cleanDisplay(4);
           strip.show();
        }*/
        if (SEC_TIMER < 3 && SEC_TIMER > 0){
@@ -105,7 +105,7 @@ void intervalTimerUP(){
               TimerCount(1);
               if (rounds_flag){
                 RD_TIMER = RD_TIMER + 1;
-                timer_buzzer_long.reset();
+                timer_buzzer_long.reset(); //buzz each round
                 rounds_flag = false;
               }
               if( MIN_TIMER == MIN_TIMER_TARGET_H1 && SEC_TIMER > SEC_TIMER_TARGET_H1 && !interval_flag ){
@@ -155,7 +155,7 @@ void intervalTimerDOWN(){
             TimerCount(-1);
             if (rounds_flag){
               RD_TIMER = RD_TIMER + 1;
-              timer_buzzer_long.reset();
+              timer_buzzer_long.reset(); //buzz each round
               rounds_flag = false;
             }
             if( MIN_TIMER == 0 && SEC_TIMER == 0 && !interval_flag ){

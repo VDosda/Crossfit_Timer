@@ -47,8 +47,8 @@ void setUpModeBtn(){
         }
     }else if (timer_mode_position_count == 2){ //if Round mode
         dots(1, false);
-        cleanDigit(2);
-        cleanDigit(3);
+        cleanDisplay(2);
+        cleanDisplay(3);
         if(setup_mode_position_count > 0 && setup_mode_position_count < 2){ 
           setup_mode_position_count = 2;
         }
@@ -110,25 +110,25 @@ void setUpTimerBtn(){
 
 ////////////////////////////////// BLINKING
 void setUpTimerBlinking(){
-     if (count_blinking_digit_on.isReady()) {
+     if (count_blinking_7seg_on.isReady()) {
             resetTimerTamps();
-            count_blinking_digit_on.reset();
-            count_blinking_digit_off.reset();
-       }else if(count_blinking_digit_off.isReady() && !(buttonState_UP || buttonState_DOWN)){
+            count_blinking_7seg_on.reset();
+            count_blinking_7seg_off.reset();
+       }else if(count_blinking_7seg_off.isReady() && !(buttonState_UP || buttonState_DOWN)){
            switch(setup_mode_position_count){    
             case 0:{
-                  cleanDigit(0);
-                  cleanDigit(1);
+                  cleanDisplay(0);
+                  cleanDisplay(1);
               break;
             }
             case 1:{
-                cleanDigit(2);
-                cleanDigit(3);
+                cleanDisplay(2);
+                cleanDisplay(3);
               break;
             }
             case 2:{
-                cleanDigit(4);
-                cleanDigit(5);
+                cleanDisplay(4);
+                cleanDisplay(5);
               break;
             }
           }

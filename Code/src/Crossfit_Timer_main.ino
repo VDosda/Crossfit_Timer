@@ -52,15 +52,15 @@ int setup_mode_position_count;
 int timer_mode_position_count;
 int MODE;
 
-SimpleTimer count_blinking_digit_on;
-SimpleTimer count_blinking_digit_off;
+SimpleTimer count_blinking_7seg_on;
+SimpleTimer count_blinking_7seg_off;
 
 bool up_down_mode_on_off_flag;
 //------------------------------------------------------------------------------------------- LED MATRIX
 #define LED_TYPE    WS2811
 #define N_LEDS     46
-#define PIN_LEDS_DIGIT       3
-CRGB leds_digit[N_LEDS];
+#define PIN_LEDS_7_SEG       3
+CRGB leds_7_seg[N_LEDS];
 //------------------------------------------------------------------------------------------- BATTERY LEVEL
 #define PIN_LED         2
 CRGB led_battery_level[1]; //= Adafruit_NeoPixel(1, PIN_LED, NEO_GRB + NEO_KHZ800);
@@ -222,8 +222,8 @@ void setup()
   
   //TIMERS LIB
   timer_dots.setInterval(500);
-  count_blinking_digit_on.setInterval(600);
-  count_blinking_digit_off.setInterval(300);
+  count_blinking_7seg_on.setInterval(600);
+  count_blinking_7seg_off.setInterval(300);
 
   up_down_mode_on_off_flag = true;
   
@@ -256,7 +256,7 @@ void setup()
   red_point_flag = true;
   FastLED.addLeds<WS2811, PIN_LED, RGB>(led_battery_level, 1);
 
-  FastLED.addLeds<WS2811, PIN_LEDS_DIGIT, GRB>(leds_digit, N_LEDS);
+  FastLED.addLeds<WS2811, PIN_LEDS_7_SEG, GRB>(leds_7_seg, N_LEDS);
   
   //strip.begin();
 }

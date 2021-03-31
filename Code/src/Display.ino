@@ -119,8 +119,6 @@ void displayGestion(int position7seg, int r, int g, int b){
      unit_of_time_display_tamp[position7seg]= unit_of_time_display[position7seg];
 }
 
-int entityRHMS[4];
-bool hideEntityMRHMSD[6];
 void TimerDisplay(char * mode, int rounds, int minutes, int seconds, bool hideModeFlag, bool hideRoundsFlag, bool hideMinutesFlag, bool hideSecondsFlag, bool hideDotsFlag){
 
 //---------------------------------------------------------DISPLAY 0 1
@@ -177,7 +175,9 @@ void TimerDisplay(char * mode, int rounds, int minutes, int seconds, bool hideMo
    unit_of_time_display[5]=seconds-abs(seconds/10)*10;
   if(!hideSecondsFlag){
     if ( unit_of_time_display_tamp[4]!= unit_of_time_display[4]){
-        displayGestion(4, BRIGHTNESS, 0, 0);
+        if(hide_fourth_display_flag){                              // clean "0" display for 09 to 01 decount (Timer.ino line 40)
+          displayGestion(4, BRIGHTNESS, 0, 0);
+        }  
     }
     if ( unit_of_time_display_tamp[5]!= unit_of_time_display[5]){
         displayGestion(5, BRIGHTNESS, 0, 0);

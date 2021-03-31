@@ -13,15 +13,9 @@ void clockRTC(){
     }
 }
 
-void buzzer(){
-  if (!timer_buzzer_long.isReady() || !timer_buzzer_short.isReady()){
-    tone(BUZZER, 500);
-    delay(100);
-  }else{
-    noTone(BUZZER);
-  }
+void buzzerOn(int millisecond){
+    buzzer.beep(millisecond);
 }
-
 
 void setMillisecondFromRTC(){
   if (RTC.getSecond() != previous_RTC_time){
@@ -35,25 +29,30 @@ void TimerPreparationCountDown(){
     if(setup_timer_flag){
       TimerDisplay("", 0, 0, 10, true, true, true, false, true);
       SEC_TIMER = 10;
-      previousMillis=millis();
-      setup_timer_flag=false;
+      previousMillis = millis();
+      setup_timer_flag = false;
     }
     if(SEC_TIMER > 0){    
-       TimerCount(-1);
-      /*if ( SEC_TIMER == 9 ){ // clean "0" display for 09 to 01 decount
+      TimerCount(-1);
+      
+      if ( SEC_TIMER == 9 ){ // clean "0" display for 09 to 01 decount
           cleanDisplay(4);
-          strip.show();
-       }*/
+          hide_fourth_display_flag = false;
+       }
        if (SEC_TIMER < 3 && SEC_TIMER > 0){
           if (sec_tampon_buzzer != SEC_TIMER){
-            sec_tampon_buzzer=SEC_TIMER;
-            timer_buzzer_short.reset();
+            sec_tampon_buzzer = SEC_TIMER;
+            buzzerOn(500);
           }
+       }
+       if (SEC_TIMER == 0){
+          hide_fourth_display_flag = true;
        }
        TimerDisplay("", 0, 0, SEC_TIMER, true, true, true, false, true);
     } else{
-      timer_preparation_10_sec_flag=false;
-      setup_timer_flag=true;
+      timer_preparation_10_sec_flag = false;
+      setup_timer_flag = true;
+      
     }
 }
 
@@ -99,13 +98,13 @@ void intervalTimerUP(){
               resetTimerTamps();
               rounds_target_display_flag = (RD_TIMER_TARGET == 1 && ((MIN_TIMER_TARGET_H1 + SEC_TIMER_TARGET_H1) == 0 || (MIN_TIMER_TARGET_H2 + SEC_TIMER_TARGET_H2) == 0))? true : false;
               previousMillis = millis();
-              timer_buzzer_long.reset();
+              buzzerOn(1000);
           }
         if(!(RD_TIMER == RD_TIMER_TARGET && rounds_flag)){
               TimerCount(1);
               if (rounds_flag){
                 RD_TIMER = RD_TIMER + 1;
-                timer_buzzer_long.reset(); //buzz each round
+                buzzerOn(1000); //buzz each round
                 rounds_flag = false;
               }
               if( MIN_TIMER == MIN_TIMER_TARGET_H1 && SEC_TIMER > SEC_TIMER_TARGET_H1 && !interval_flag ){
@@ -127,7 +126,7 @@ void intervalTimerUP(){
           }else if(!pause_flag){
             running_flag = false;
             running_finish_flag = true;
-            timer_buzzer_long.reset();
+            buzzerOn(1000);
           }
       }else if(running_flag){
          TimerPreparationCountDown();
@@ -149,13 +148,13 @@ void intervalTimerDOWN(){
             MIN_TIMER = MIN_TIMER_TARGET_H1;
             SEC_TIMER = SEC_TIMER_TARGET_H1;
             previousMillis = millis();
-            timer_buzzer_long.reset();
+            buzzerOn(1000);
         }
         if(!(RD_TIMER == RD_TIMER_TARGET && rounds_flag)){
             TimerCount(-1);
             if (rounds_flag){
               RD_TIMER = RD_TIMER + 1;
-              timer_buzzer_long.reset(); //buzz each round
+              buzzerOn(1000); //buzz each round
               rounds_flag = false;
             }
             if( MIN_TIMER == 0 && SEC_TIMER == 0 && !interval_flag ){
@@ -178,7 +177,7 @@ void intervalTimerDOWN(){
         }else if(!pause_flag){
             running_flag = false;
             running_finish_flag = true;
-            timer_buzzer_long.reset();
+            buzzerOn(1000);
         }
       }else if(running_flag){
          TimerPreparationCountDown();

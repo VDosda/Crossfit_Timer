@@ -1,4 +1,5 @@
 #include <SimpleTimer.h>
+#include <ezBuzzer.h>
 #define FASTLED_INTERNAL
 #include <FastLED.h>
 #include <Wire.h>
@@ -16,8 +17,7 @@ bool clock_activate;
 int previous_RTC_time_clock;
 //------------------------------------------------------------------------------------------- BUZZER
 #define BUZZER   7
-SimpleTimer timer_buzzer_short;
-SimpleTimer timer_buzzer_long;
+ezBuzzer buzzer(BUZZER); 
 int sec_tampon_buzzer;
 
 //------------------------------------------------------------------------------------------- BUTTONS
@@ -75,7 +75,6 @@ char * mode_display_tamp = "  ";
 
 int BRIGHTNESS=200;
 
-
 //------------------------------------------------------------------------------------------- DELAY timer
 SimpleTimer timer_dots;
 bool timer_dots_flag;
@@ -89,6 +88,7 @@ int RD_TIMER, RD_TIMER_TARGET;
 int total_H1_H2;
 bool setup_timer_flag;
 bool timer_preparation_10_sec_flag;
+bool hide_fourth_display_flag;
 bool running_flag;
 bool running_finish_flag;
 bool pause_flag;
@@ -107,6 +107,7 @@ void btnStartStopOk(){
      if(running_flag && !timer_preparation_10_sec_flag){
         pause_flag = !pause_flag;
         Serial.println("pause");
+        
      }
      if(!setup_mode_active_flag && !running_flag && total_H1_H2 != 0 && !running_finish_flag){
         running_flag = true;
@@ -172,6 +173,7 @@ void batteryLevel(){
  sensor_value = analogRead(A0);
  voltage = sensor_value*(3.7/1023); //Max 2.05/2.10   Min 1.65
  int color[3];
+ Serial.println(voltage);
  if(int(voltage_tamp*10) != int(voltage*10)){
     voltage_tamp=voltage;
     if(voltage > 1.9 && voltage < 2.3)// && red_point_flag)
@@ -190,10 +192,6 @@ void batteryLevel(){
 void setup()
 {
   Serial.begin(115200);
-
-  pinMode(BUZZER, OUTPUT);
-  timer_buzzer_short.setInterval(400);
-  timer_buzzer_long.setInterval(800);
 
   pinMode(BTN_START, INPUT);
   pinMode(BTN_MODE, INPUT);
@@ -231,6 +229,7 @@ void setup()
   running_flag = false;
   running_finish_flag = false;
   timer_preparation_10_sec_flag = true;
+  hide_fourth_display_flag = true;
   pre_start_flag = true;
   setup_timer_flag=true;
   rounds_flag = false;
@@ -250,21 +249,21 @@ void setup()
   mode_tab[3].tab[1] = RTC.getMinute();
 
   //battery level
-  //battery level
   pinMode(A0, INPUT_PULLUP); 
   voltage_tamp = 0;
   red_point_flag = true;
-  FastLED.addLeds<WS2811, PIN_LED, RGB>(led_battery_level, 1);
+  FastLED.addLeds<WS2811, PIN_LED, GRB>(led_battery_level, 1);
 
   FastLED.addLeds<WS2811, PIN_LEDS_7_SEG, GRB>(leds_7_seg, N_LEDS);
   
-  //strip.begin();
 }
 
 
 //////////////////////////////////////  LOOP   //////////////////////////////////////
 void loop(){
-
+  
+     buzzer.loop();
+     
      setMillisecondFromRTC();// set Intervall millis() for exact second from RTC
   
     if (buttonState_START || buttonState_MODE || buttonState_UP || buttonState_DOWN || buttonState_RESET){
@@ -297,10 +296,7 @@ void loop(){
             pre_start_flag = true; // to display right mode using the preStart of intervals functions
          }
      }
-     if (running_flag || running_finish_flag){
-      buzzer();
-     }
-     
+
     //--------------------------BTN RESET----------------------------------
     buttonState_RESET = digitalRead(BTN_RESET);
     if (!setup_mode_active_flag){ //in setup mode we shouldnt have the possibility to use reset btn
@@ -328,6 +324,7 @@ void loop(){
           }
         }
      }
+    
 
     batteryLevel();
 }

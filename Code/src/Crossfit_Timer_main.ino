@@ -173,15 +173,15 @@ void batteryLevel(){
  sensor_value = analogRead(A0);
  voltage = sensor_value*(3.7/1023); //Max 2.05/2.10   Min 1.65
  int color[3];
- Serial.println(voltage);
+ //Serial.println(voltage);
  if(int(voltage_tamp*10) != int(voltage*10)){
     voltage_tamp=voltage;
     if(voltage > 1.9 && voltage < 2.3)// && red_point_flag)
     {
-      color[0]=0; color[1]=150; color[2]=0;
+      color[0]=0; color[1]=100; color[2]=0;
     }else{
       red_point_flag = false; //if voltage go under 3.2 ones, it has to stay red
-      color[0]=150; color[1]=0; color[2]=0;
+      color[0]=100; color[1]=0; color[2]=0;
     }
     led_battery_level[0] = CRGB(color[0], color[1], color[2]);
     FastLED.show();

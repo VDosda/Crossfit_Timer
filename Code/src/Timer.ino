@@ -86,6 +86,26 @@ void TimerCount(int downUp){
        }
 }
 
+int tabTimeMapMS[2];
+void timeMapMS(int Min, int Sec, int diffSec){
+    
+    Sec=Sec+diffSec;
+    if (Sec < 0 and Min > 0){
+      Sec = 59;
+      Min = Min-1;
+    }else if ( Sec < 0 and Min == 0){
+      //Sec = 0;
+    }else if (Sec > 59 and Min < 99){
+      Sec = 0;
+      Min = Min+1;
+    }else if (Sec > 59 and Min == 99){
+      Sec = 59;
+    }
+  tabTimeMapMS[0] = Min;
+  tabTimeMapMS[1] = Sec;
+}
+
+
 void intervalTimerUP(){
    if(pre_start_flag){
         pre_start_flag=false;
@@ -95,6 +115,7 @@ void intervalTimerUP(){
     if(!timer_preparation_10_sec_flag && running_flag){
        if(setup_timer_flag){
               setup_timer_flag=false;
+              timeMapMS(MIN_TIMER_TARGET_H1, SEC_TIMER_TARGET_H1, -1);
               resetTimerTamps();
               rounds_target_display_flag = (RD_TIMER_TARGET == 1 && ((MIN_TIMER_TARGET_H1 + SEC_TIMER_TARGET_H1) == 0 || (MIN_TIMER_TARGET_H2 + SEC_TIMER_TARGET_H2) == 0))? true : false;
               previousMillis = millis();
@@ -107,23 +128,30 @@ void intervalTimerUP(){
                 buzzerOn(1000); //buzz each round
                 rounds_flag = false;
               }
-              if( MIN_TIMER == MIN_TIMER_TARGET_H1 && SEC_TIMER > SEC_TIMER_TARGET_H1 && !interval_flag ){
+              if( (MIN_TIMER == tabTimeMapMS[0] && SEC_TIMER > tabTimeMapMS[1]) || (SEC_TIMER == 0 && tabTimeMapMS[1] == 59 && MIN_TIMER == tabTimeMapMS[0] + 1 )){
                 MIN_TIMER = 0;
-                SEC_TIMER = 1;
-                interval_flag = true;
+                SEC_TIMER = 0;
+                if((MIN_TIMER_TARGET_H2 + SEC_TIMER_TARGET_H2) == 0 && !interval_flag){
+                  rounds_flag = true;
+                }else if(interval_flag){
+                  rounds_flag = true;
+                }
+                interval_flag = !interval_flag;
+                interval_flag ? timeMapMS(MIN_TIMER_TARGET_H2, SEC_TIMER_TARGET_H2, -1) : timeMapMS(MIN_TIMER_TARGET_H1, SEC_TIMER_TARGET_H1, -1);
               }
-              if ( MIN_TIMER == MIN_TIMER_TARGET_H2 && SEC_TIMER > SEC_TIMER_TARGET_H2 && interval_flag ){
-                MIN_TIMER = 0;
-                SEC_TIMER = 1;
-                interval_flag = false;
-                rounds_flag = true;
-              }
+
               if(!(RD_TIMER == RD_TIMER_TARGET && rounds_flag)){ // at the end for a better display of numbers 
                 TimerDisplay("UP", RD_TIMER, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, false, false, false);
               }else{
                 dots(1, true);
               }
           }else if(!pause_flag){
+            //To finish on what it has been set
+            if (MIN_TIMER_TARGET_H2+SEC_TIMER_TARGET_H2==0){
+                TimerDisplay("", RD_TIMER, MIN_TIMER_TARGET_H1, SEC_TIMER_TARGET_H1, false, false, false, false, false);
+            }else{
+               TimerDisplay("", RD_TIMER, MIN_TIMER_TARGET_H2, SEC_TIMER_TARGET_H2, false, false, false, false, false);
+            }
             running_flag = false;
             running_finish_flag = true;
             buzzerOn(1000);

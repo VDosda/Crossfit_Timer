@@ -1,5 +1,5 @@
 # CrossFit Timer overview
-<img src="Images/Prototype/Crossfit_timer_prototype.jpg"/>
+<img src="Images/V2/Crossfit_timer_V2.gif"/>
 
 ## About this project
 

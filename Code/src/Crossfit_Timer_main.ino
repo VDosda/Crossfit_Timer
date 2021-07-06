@@ -191,7 +191,7 @@ void batteryLevel(){
 //////////////////////////////////////  SETUP   //////////////////////////////////////
 void setup()
 {
-  Serial.begin(115200);
+  //Serial.begin(115200);
 
   pinMode(BTN_START, INPUT);
   pinMode(BTN_MODE, INPUT);
@@ -216,7 +216,7 @@ void setup()
 
   //DOTS
   timer_dots_flag=true;
-  dots(1, true);
+  dots(1, false);
   
   //TIMERS LIB
   timer_dots.setInterval(500);

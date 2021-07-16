@@ -175,11 +175,13 @@ void resetTimer(){
     RD_TIMER = 1;
 
     resetTimerTamps();
+    dots(1, true);
     
     running_flag = false;
     running_finish_flag = false;
     pause_flag = false;
     timer_preparation_10_sec_flag = true;
+    hide_fourth_display_flag = false;
     pre_start_flag = true;
     setup_timer_flag=true;
     rounds_flag = false;

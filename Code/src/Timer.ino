@@ -37,7 +37,7 @@ void TimerPreparationCountDown(){
       
       if ( SEC_TIMER == 9 ){ // clean "0" display for 09 to 01 decount
           cleanDisplay(4);
-          hide_fourth_display_flag = false;
+          hide_fourth_display_flag = true;
        }
        if (SEC_TIMER < 3 && SEC_TIMER > 0){
           if (sec_tampon_buzzer != SEC_TIMER){
@@ -46,7 +46,7 @@ void TimerPreparationCountDown(){
           }
        }
        if (SEC_TIMER == 0){
-          hide_fourth_display_flag = true;
+          hide_fourth_display_flag = false;
        }
        TimerDisplay("", 0, 0, SEC_TIMER, true, true, true, false, true);
     } else{
@@ -138,6 +138,7 @@ void intervalTimerUP(){
                 }
                 interval_flag = !interval_flag;
                 interval_flag ? timeMapMS(MIN_TIMER_TARGET_H2, SEC_TIMER_TARGET_H2, -1) : timeMapMS(MIN_TIMER_TARGET_H1, SEC_TIMER_TARGET_H1, -1);
+                buzzerOn(800); //buzz each intervall
               }
 
               if(!(RD_TIMER == RD_TIMER_TARGET && rounds_flag)){ // at the end for a better display of numbers 
@@ -189,12 +190,14 @@ void intervalTimerDOWN(){
               MIN_TIMER = MIN_TIMER_TARGET_H2;
               SEC_TIMER = SEC_TIMER_TARGET_H2;
               interval_flag = true;
+              buzzerOn(800); //buzz each intervall
             }
             if ( MIN_TIMER == 0 && SEC_TIMER == 0 && interval_flag ){
               MIN_TIMER = MIN_TIMER_TARGET_H1;
               SEC_TIMER = SEC_TIMER_TARGET_H1;
               interval_flag = false;
               rounds_flag = true;
+              buzzerOn(800); //buzz each intervall
             }
             if(!(RD_TIMER == RD_TIMER_TARGET && rounds_flag)){ // at the end for a better display of numbers 
               TimerDisplay("DN", RD_TIMER, MIN_TIMER, SEC_TIMER, !rounds_target_display_flag, rounds_target_display_flag, false, false, false);

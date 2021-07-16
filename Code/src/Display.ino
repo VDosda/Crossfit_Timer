@@ -175,7 +175,7 @@ void TimerDisplay(char * mode, int rounds, int minutes, int seconds, bool hideMo
    unit_of_time_display[5]=seconds-abs(seconds/10)*10;
   if(!hideSecondsFlag){
     if ( unit_of_time_display_tamp[4]!= unit_of_time_display[4]){
-        if(hide_fourth_display_flag){                              // clean "0" display for 09 to 01 decount (Timer.ino line 40)
+        if(!hide_fourth_display_flag){                              // clean "0" display for 09 to 01 decount (Timer.ino line 40)
           displayGestion(4, BRIGHTNESS, 0, 0);
         }  
     }

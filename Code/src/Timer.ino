@@ -128,12 +128,12 @@ void intervalTimerUP(){
                 buzzerOn(1000); //buzz each round
                 rounds_flag = false;
               }
+              //Serial.println("--");
               if( (MIN_TIMER == tabTimeMapMS[0] && SEC_TIMER > tabTimeMapMS[1]) || (SEC_TIMER == 0 && tabTimeMapMS[1] == 59 && MIN_TIMER == tabTimeMapMS[0] + 1 )){
                 MIN_TIMER = 0;
                 SEC_TIMER = 0;
-                if((MIN_TIMER_TARGET_H2 + SEC_TIMER_TARGET_H2) == 0 && !interval_flag){
-                  rounds_flag = true;
-                }else if(interval_flag){
+                
+                if(interval_flag){
                   rounds_flag = true;
                 }
                 interval_flag = !interval_flag;

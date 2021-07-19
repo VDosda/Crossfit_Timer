@@ -160,6 +160,7 @@ void upDownTimerMode(){
   }
 
   resetTimer();
+  dots(1, false); // on power on -> -- -- -- instead of -- --:--
 }
 
 //////////////////////////////////// RESET MODE

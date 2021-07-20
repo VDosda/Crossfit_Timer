@@ -47,8 +47,10 @@ void TimerPreparationCountDown(){
        }
        if (SEC_TIMER == 0){
           hide_fourth_display_flag = false;
+       }else{                                        // for timer count up or down, hide '0' for better display
+        TimerDisplay("", 0, 0, SEC_TIMER, true, true, true, false, true);
        }
-       TimerDisplay("", 0, 0, SEC_TIMER, true, true, true, false, true);
+       
     } else{
       timer_preparation_10_sec_flag = false;
       setup_timer_flag = true;
@@ -129,6 +131,7 @@ void intervalTimerUP(){
                 interval_flag = true;
               }else{
                  timeMapMS(MIN_TIMER_TARGET_H1, SEC_TIMER_TARGET_H1, -1);
+                 interval_flag = false;                                  // to start to count rounds after the end of second interval
               }
               
               resetTimerTamps();

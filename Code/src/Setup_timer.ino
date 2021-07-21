@@ -159,12 +159,11 @@ void upDownTimerMode(){
     displayLeds(MINUS, i, BRIGHTNESS,0, 0);
   }
 
-  resetTimer();
-  dots(1, false); // on power on -> -- -- -- instead of -- --:--
+  resetTimer(false); // on power on -> -- -- -- instead of -- --:--
 }
 
 //////////////////////////////////// RESET MODE
-void resetTimer(){
+void resetTimer(bool dots_activate){
   if(MODE == 0){
       SEC_TIMER = 0;
       MIN_TIMER = 0;
@@ -176,7 +175,7 @@ void resetTimer(){
     RD_TIMER = 1;
 
     resetTimerTamps();
-    dots(1, true);
+    dots(1, dots_activate);
     
     running_flag = false;
     running_finish_flag = false;

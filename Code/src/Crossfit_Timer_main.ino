@@ -115,8 +115,7 @@ void btnStartStopOk(){
      }else if (setup_mode_active_flag){    //to set the start of the timer ( because of the blinking some leds can be off) and reset setup mode
         setup_mode_position_count = 2;
         resetTimerTamps();
-        resetTimer();
-        dots(1, true); //in case setup mode is on the round setup, to put back the dots
+        resetTimer(true); // dots_activate = true in case setup mode is on the round setup, to put back the dots
         Serial.println("setup ready");
      }
      setup_mode_active_flag = false;
@@ -148,7 +147,7 @@ void btnUpDown(){
 void btnReset(){
    if (buttonState_RESET && one_push_btn_flag && !clock_activate)
    {
-      resetTimer();
+      resetTimer(true);
       delay(300);
    }else if(buttonState_RESET){  //CLOCK RTC
       if (timer_click_clock_reset.isReady()){
@@ -160,7 +159,7 @@ void btnReset(){
          }else{
             MODE = 0;
             timer_click_clock_reset.reset();
-            resetTimer();
+            resetTimer(true);
             timer_mode_position_count = 0;
           }
       }

@@ -82,22 +82,22 @@ void setUpTimerBtn(){
     }
     case 1:{
       mode_tab[timer_mode_position_count].tab[0] = mode_tab[timer_mode_position_count].tab[0] + up_down_count;
-      if (timer_mode_position_count == 3){ // interval mode
+      if (timer_mode_position_count == 3){ // hours clock mode
         if (mode_tab[timer_mode_position_count].tab[0] > 24){ mode_tab[timer_mode_position_count].tab[0] = 1; }
         if (mode_tab[timer_mode_position_count].tab[0] < 0){ mode_tab[timer_mode_position_count].tab[0] = 24; }
-      }else{
-        if (mode_tab[timer_mode_position_count].tab[0] > 59){ mode_tab[timer_mode_position_count].tab[0] = 0; }
-        if (mode_tab[timer_mode_position_count].tab[0] < 0){ mode_tab[timer_mode_position_count].tab[0] = 59; }
+      }else{ // min timer mode
+        if (mode_tab[timer_mode_position_count].tab[0] > 99){ mode_tab[timer_mode_position_count].tab[0] = 0; }
+        if (mode_tab[timer_mode_position_count].tab[0] < 0){ mode_tab[timer_mode_position_count].tab[0] = 99; }
       }
       setMinutes();
       break;
     }
     case 2:{
       mode_tab[timer_mode_position_count].tab[1] =  mode_tab[timer_mode_position_count].tab[1] + up_down_count;
-      if (timer_mode_position_count == 2){ // interval mode
+      if (timer_mode_position_count == 2){ // rounds timer mode
         if (mode_tab[timer_mode_position_count].tab[1] > 99){ mode_tab[timer_mode_position_count].tab[1] = 1; }
         if (mode_tab[timer_mode_position_count].tab[1] < 1){ mode_tab[timer_mode_position_count].tab[1] = 99; }
-      }else{
+      }else{ // sec timer mode
         if (mode_tab[timer_mode_position_count].tab[1] > 59){ mode_tab[timer_mode_position_count].tab[1] = 0; }
         if (mode_tab[timer_mode_position_count].tab[1] < 0){ mode_tab[timer_mode_position_count].tab[1]  = 59; }
       }

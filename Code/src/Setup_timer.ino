@@ -70,7 +70,6 @@ void setUpTimerBtn(){
 
   SEC_TIMER = 0;
   MIN_TIMER = 0;
-  H_TIMER = 0;
   RD_TIMER = 1;
   
   switch(setup_mode_position_count){    

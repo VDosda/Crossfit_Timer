@@ -77,12 +77,8 @@ void TimerCount(int downUp){
               downUp == 1 ? SEC_TIMER = 0 : SEC_TIMER = 59;
               MIN_TIMER = MIN_TIMER + downUp;
            }
-           if (MIN_TIMER > 59 || MIN_TIMER < 0) {
-              downUp == 1 ? MIN_TIMER = 0 : MIN_TIMER = 59;
-              H_TIMER = H_TIMER + downUp;
-           }
-           if (H_TIMER > 24 || H_TIMER < 0) {
-              H_TIMER = 0;
+           if (MIN_TIMER > 99 || MIN_TIMER < 0) {
+              downUp == 1 ? MIN_TIMER = 0 : MIN_TIMER = 99;
            }
            pause_save_millis_flag = true;
        }
